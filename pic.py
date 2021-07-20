@@ -23,6 +23,7 @@ def video_out(image, x, y):
         _, thresh = cv2.threshold(blur, y, 255, cv2.THRESH_TOZERO)
     if x == 5:
         _, thresh = cv2.threshold(blur, y, 255, cv2.THRESH_TOZERO_INV)
+    cv2.imshow('My Cam', thresh)
 
 video = cv2.VideoCapture(0)
 while True:
@@ -41,7 +42,6 @@ while True:
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(img, (5, 5), 0)
     video_out(blur, q, p)
-    cv2.imshow('My Cam', thresh)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
