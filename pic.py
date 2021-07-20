@@ -11,6 +11,18 @@ def change_threshold(val):
 def change_type(var):
     global q
     q = int(var)
+    
+def video_out(image, x, y):
+    if x == 1:
+        _, thresh = cv2.threshold(blur, y, 255, cv2.THRESH_BINARY)
+    if x == 2:
+        _, thresh = cv2.threshold(blur, y, 255, cv2.THRESH_BINARY_INV)
+    if x == 3:
+        _, thresh = cv2.threshold(blur, y, 255, cv2.THRESH_TRUNC)
+    if x == 4:
+        _, thresh = cv2.threshold(blur, y, 255, cv2.THRESH_TOZERO)
+    if x == 5:
+        _, thresh = cv2.threshold(blur, y, 255, cv2.THRESH_TOZERO_INV)
 
 video = cv2.VideoCapture(0)
 while True:
@@ -28,16 +40,7 @@ while True:
     _, img = video.read()
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(img, (5, 5), 0)
-    if q == 1:
-        _, thresh = cv2.threshold(blur, p, 255, cv2.THRESH_BINARY)
-    if q == 2:
-        _, thresh = cv2.threshold(blur, p, 255, cv2.THRESH_BINARY_INV)
-    if q == 3:
-        _, thresh = cv2.threshold(blur, p, 255, cv2.THRESH_TRUNC)
-    if q == 4:
-        _, thresh = cv2.threshold(blur, p, 255, cv2.THRESH_TOZERO)
-    if q == 5:
-        _, thresh = cv2.threshold(blur, p, 255, cv2.THRESH_TOZERO_INV)
+    video_out(blur, q, p)
     cv2.imshow('My Cam', thresh)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
